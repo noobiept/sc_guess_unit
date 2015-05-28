@@ -20,8 +20,9 @@ ul
 .List li
     {
     display: inline-block;
-    min-width: 100px;
-    margin: 10px;
+    width: 120px;
+    padding: 10px 20px;
+    cursor: pointer;
     }
 
 
@@ -29,4 +30,40 @@ ul
     {
     display: block;
     margin: auto;
+    }
+
+
+.zerg
+    {
+    background-color: rgba(128, 0, 128, 0.1);
+    }
+
+
+.zerg:hover
+    {
+    background-color: rgba(128, 0, 128, 0.2);
+    }
+
+
+.protoss
+    {
+    background-color: rgba(255, 255, 0, 0.1);
+    }
+
+
+.protoss:hover
+    {
+    background-color: rgba(255, 255, 0, 0.2);
+    }
+
+
+.terran
+    {
+    background-color: rgba(0, 0, 255, 0.1);
+    }
+
+
+.terran:hover
+    {
+    background-color: rgba(0, 0, 255, 0.2);
     }

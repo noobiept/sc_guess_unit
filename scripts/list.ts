@@ -1,12 +1,13 @@
 interface ListArgs
     {
-    values: string[];
+    units_info: Object;
     container: HTMLElement;
     }
 
 class List
     {
-    values: string[];
+    unit_names: string[];
+    units_info: Object;
     ul: HTMLUListElement;
 
     constructor( args: ListArgs )
@@ -17,28 +18,23 @@ class List
         container.className = 'List';
 
         var ul = document.createElement( 'ul' );
-        var length = args.values.length;
+        var unitsNames = Object.keys( args.units_info );
 
         ul.addEventListener( 'click', function( event )
             {
             _this.clickListener( event );
             });
 
-        for (var a = 0 ; a < length ; a++)
-            {
-            var value = document.createElement( 'li' );
-
-            value.innerHTML = args.values[ a ];
-
-            ul.appendChild( value );
-            }
-
         container.appendChild( ul );
         args.container.appendChild( container );
 
         this.ul = ul;
-        this.values = args.values;
+        this.unit_names = unitsNames;
+        this.units_info = args.units_info;
+
+        this.buildList( unitsNames );
         }
+
 
     clickListener( event: MouseEvent )
         {
@@ -49,20 +45,23 @@ class List
         }
 
 
+    /**
+     * Show only the units whose name match with the `value` given.
+     */
     search( value: string )
         {
         var re = new RegExp( value, 'i' );
         var matchValues = [];
-        var length = this.values.length;
+        var length = this.unit_names.length;
         var a;
 
         for (a = 0 ; a < length ; a++)
             {
-            var value = this.values[ a ];
+            var name = this.unit_names[ a ];
 
-            if ( re.test( value ) )
+            if ( re.test( name ) )
                 {
-                matchValues.push( value );
+                matchValues.push( name );
                 }
             }
 
@@ -70,15 +69,24 @@ class List
         this.ul.innerHTML = '';
 
             // add the values that matched the search
-        length = matchValues.length;
+        this.buildList( matchValues );
+        }
 
-        for (a = 0 ; a < length ; a++)
+
+    buildList( unitNames: string[] )
+        {
+        var length = unitNames.length;
+
+        for (var a = 0 ; a < length ; a++)
             {
-            var li = document.createElement( 'li' );
+            var unit = document.createElement( 'li' );
+            var unitName = unitNames[ a ];
+            var race = this.units_info[ unitName ].race;
 
-            li.innerHTML = matchValues[ a ];
+            unit.innerHTML = unitName;
+            unit.className = race;
 
-            this.ul.appendChild( li );
+            this.ul.appendChild( unit );
             }
         }
     }
