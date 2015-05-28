@@ -57,14 +57,17 @@ var Main;
     var MENU_UNITS_LEFT;
     var MENU_TRIES_LEFT;
     var AUDIO_ELEMENT;
+    var MESSAGE_ELEMENT;
     // game values
     var CURRENT_UNIT = '';
     var UNITS_LEFT = [];
     var CURRENT_TRIES_LEFT = 3;
+    var MESSAGE_ID;
     var LIST;
     function init() {
         initMenu();
         AUDIO_ELEMENT = document.querySelector('#Audio');
+        MESSAGE_ELEMENT = document.querySelector('#Message');
         LIST = new List({
             units_info: UNITS_NAMES,
             container: document.body
@@ -84,10 +87,13 @@ var Main;
     }
     function guess(unitName) {
         if (unitName === CURRENT_UNIT) {
+            showMessage('Correct!', 'correct');
             getNextUnit();
         }
         else {
+            showMessage('Incorrect!', 'incorrect');
             CURRENT_TRIES_LEFT--;
+            updateMenuValues();
             if (CURRENT_TRIES_LEFT < 0) {
                 gameOver();
             }
@@ -106,6 +112,7 @@ var Main;
             AUDIO_ELEMENT.play();
         }
         else {
+            showMessage('You Won!');
             gameOver();
         }
     }
@@ -114,5 +121,17 @@ var Main;
     function updateMenuValues() {
         MENU_TRIES_LEFT.innerText = CURRENT_TRIES_LEFT;
         MENU_UNITS_LEFT.innerText = UNITS_LEFT.length;
+    }
+    function showMessage(text, className) {
+        if (typeof className === 'undefined') {
+            className = '';
+        }
+        window.clearTimeout(MESSAGE_ID);
+        MESSAGE_ELEMENT.className = className;
+        MESSAGE_ELEMENT.innerText = text;
+        MESSAGE_ID = window.setTimeout(function () {
+            MESSAGE_ELEMENT.className = '';
+            MESSAGE_ELEMENT.innerText = '----';
+        }, 2000);
     }
 })(Main || (Main = {}));

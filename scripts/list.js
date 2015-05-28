@@ -17,8 +17,10 @@ var List = (function () {
     }
     List.prototype.clickListener = function (event) {
         var sourceElement = event.srcElement;
-        console.log(sourceElement.innerText);
-        Main.guess(sourceElement.innerText);
+        // don't try to guess if it was clicked on the ul
+        if (sourceElement.tagName.toLowerCase() === 'li') {
+            Main.guess(sourceElement.innerText);
+        }
     };
     /**
      * Show only the units whose name match with the `value` given.

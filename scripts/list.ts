@@ -40,8 +40,11 @@ class List
         {
         var sourceElement = <HTMLElement> event.srcElement;
 
-        console.log( sourceElement.innerText );
-        Main.guess( sourceElement.innerText );
+            // don't try to guess if it was clicked on the ul
+        if ( sourceElement.tagName.toLowerCase() === 'li' )
+            {
+            Main.guess( sourceElement.innerText );
+            }
         }
 
 
