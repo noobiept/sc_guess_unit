@@ -9,55 +9,55 @@ Main.init();
 module Main
 {
 var UNITS_NAMES = {
-    drone: { race: 'zerg' },
-    queen: { race: 'zerg' },
-    zergling: { race: 'zerg' },
     baneling: { race: 'zerg' },
-    roach: { race: 'zerg' },
+    broodlord: { race: 'zerg' },
+    corruptor: { race: 'zerg' },
+    drone: { race: 'zerg' },
     hydralisk: { race: 'zerg' },
     infestor: { race: 'zerg' },
-    swarm_host: { race: 'zerg' },
-    ultralisk: { race: 'zerg' },
+    mutalisk: { race: 'zerg' },
     overlord: { race: 'zerg' },
     overseer: { race: 'zerg' },
-    mutalisk: { race: 'zerg' },
-    corruptor: { race: 'zerg' },
-    broodlord: { race: 'zerg' },
+    queen: { race: 'zerg' },
+    roach: { race: 'zerg' },
+    swarm_host: { race: 'zerg' },
+    ultralisk: { race: 'zerg' },
     viper: { race: 'zerg' },
+    zergling: { race: 'zerg' },
 
-    probe: { race: 'protoss' },
-    zealot: { race: 'protoss' },
-    stalker: { race: 'protoss' },
-    sentry: { race: 'protoss' },
-    high_templar: { race: 'protoss' },
-    dark_templar: { race: 'protoss' },
-    immortal: { race: 'protoss' },
-    colossus: { race: 'protoss' },
     archon: { race: 'protoss' },
-    observer: { race: 'protoss' },
-    warp_prism: { race: 'protoss' },
-    phoenix: { race: 'protoss' },
-    void_ray: { race: 'protoss' },
-    oracle: { race: 'protoss' },
     carrier: { race: 'protoss' },
-    tempest: { race: 'protoss' },
+    colossus: { race: 'protoss' },
+    dark_templar: { race: 'protoss' },
+    high_templar: { race: 'protoss' },
+    immortal: { race: 'protoss' },
     mothership: { race: 'protoss' },
+    observer: { race: 'protoss' },
+    oracle: { race: 'protoss' },
+    phoenix: { race: 'protoss' },
+    probe: { race: 'protoss' },
+    sentry: { race: 'protoss' },
+    stalker: { race: 'protoss' },
+    tempest: { race: 'protoss' },
+    void_ray: { race: 'protoss' },
+    warp_prism: { race: 'protoss' },
+    zealot: { race: 'protoss' },
 
-    scv: { race: 'terran' },
-    marine: { race: 'terran' },
-    marauder: { race: 'terran' },
-    reaper: { race: 'terran' },
+    banshee: { race: 'terran' },
+    battlecruiser: { race: 'terran' },
     ghost: { race: 'terran' },
-    hellion: { race: 'terran' },
     hellbat: { race: 'terran' },
-    siege_tank: { race: 'terran' },
-    widow_mine: { race: 'terran' },
-    thor: { race: 'terran' },
-    viking: { race: 'terran' },
+    hellion: { race: 'terran' },
+    marauder: { race: 'terran' },
+    marine: { race: 'terran' },
     medivac: { race: 'terran' },
     raven: { race: 'terran' },
-    banshee: { race: 'terran' },
-    battlecruiser: { race: 'terran' }
+    reaper: { race: 'terran' },
+    scv: { race: 'terran' },
+    siege_tank: { race: 'terran' },
+    thor: { race: 'terran' },
+    viking: { race: 'terran' },
+    widow_mine: { race: 'terran' }
 };
 
 
@@ -152,7 +152,7 @@ function getNextUnit()
         // game over
     else
         {
-        showMessage( 'You Won!' )
+        showMessage( 'You Won!' );
 
         gameOver();
         }
