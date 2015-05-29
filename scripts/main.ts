@@ -67,6 +67,7 @@ var MENU_UNITS_LEFT;
 var MENU_SCORE;
 var AUDIO_ELEMENT;
 var MESSAGE_ELEMENT;
+var SEARCH_ELEMENT;
 
     // game values
 var CURRENT_UNIT = '';
@@ -74,6 +75,7 @@ var UNITS_LEFT = [];
 var SCORE = 0;
 
 var MESSAGE_ID;
+var TIMER_ID;
 var LIST;
 
 
@@ -93,14 +95,16 @@ export function init()
     }
 
 
+/**
+ * Initialize the menu elements.
+ */
 function initMenu()
     {
     MENU_UNITS_LEFT = document.querySelector( '#UnitsLeft' );
     MENU_SCORE = document.querySelector( '#Score' );
+    SEARCH_ELEMENT = document.querySelector( '#Search' );
 
-    var search = document.querySelector( '#Search' );
-
-    search.addEventListener( 'input', function( event )
+    SEARCH_ELEMENT.addEventListener( 'input', function( event )
         {
         LIST.search( event.srcElement.value );
         });
@@ -115,31 +119,56 @@ function start()
         // reset the state
     CURRENT_UNIT = '';
     UNITS_LEFT = Object.keys( UNITS_NAMES );
-    SCORE = 0;
+    setScore( 100 );
+
+        // reduce the score every second
+    TIMER_ID = window.setInterval( function()
+        {
+        setScore( SCORE - 1 );
+        }, 1000 );
 
         // start the game
     getNextUnit();
+
+    SEARCH_ELEMENT.focus();
     }
 
 
+/**
+ * Check if a guess is correct.
+ */
 export function guess( unitName: string )
     {
     if ( unitName === CURRENT_UNIT )
         {
+        setScore( SCORE + 10 );
         showMessage( 'Correct!', 'correct' );
         getNextUnit();
+
+            // clear the search (in case it was used to get the correct unit)
+        if ( SEARCH_ELEMENT.value !== '' )
+            {
+            SEARCH_ELEMENT.value = '';
+            LIST.search( '' );
+            }
         }
 
     else
         {
+        setScore( SCORE - 5 );
         showMessage( 'Incorrect!', 'incorrect' );
         }
+
+    SEARCH_ELEMENT.focus();
     }
 
 
+/**
+ * Get a random new unit, or end the game if we've passed through all of them.
+ */
 function getNextUnit()
     {
-    updateMenuValues();
+    setUnitsLeft( UNITS_LEFT.length );
 
     var length = UNITS_LEFT.length;
 
@@ -150,10 +179,7 @@ function getNextUnit()
 
         CURRENT_UNIT = UNITS_LEFT.splice( position, 1 )[ 0 ];
 
-        var source = 'audio/' + CURRENT_UNIT + '.ogg';
-
-        AUDIO_ELEMENT.src = source;
-        AUDIO_ELEMENT.load();
+        AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.ogg';
         AUDIO_ELEMENT.play();
         }
 
@@ -170,6 +196,12 @@ function gameOver()
         // the audio may be playing
     AUDIO_ELEMENT.pause();
 
+        // clear the timer interval
+    window.clearInterval( TIMER_ID );
+
+
+        // show a final message with the score
+        // restart the game when 'ok' is pressed
     var ok = new Game.Html.Button({
             value: 'Ok',
             callback: function( button )
@@ -188,10 +220,16 @@ function gameOver()
     }
 
 
-function updateMenuValues()
+function setScore( value )
     {
-    MENU_SCORE.innerText = SCORE;
-    MENU_UNITS_LEFT.innerText = UNITS_LEFT.length;
+    SCORE = value;
+    MENU_SCORE.innerText = value;
+    }
+
+
+function setUnitsLeft( value )
+    {
+    MENU_UNITS_LEFT.innerText = value;
     }
 
 
