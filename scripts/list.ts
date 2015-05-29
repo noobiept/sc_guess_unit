@@ -92,4 +92,15 @@ class List
             this.ul.appendChild( unit );
             }
         }
+
+
+    getFirstItem()
+        {
+        if ( this.ul.children.length > 0 )
+            {
+            return this.ul.children[ 0 ];
+            }
+
+        return null;
+        }
     }

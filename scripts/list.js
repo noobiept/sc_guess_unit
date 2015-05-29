@@ -52,5 +52,11 @@ var List = (function () {
             this.ul.appendChild(unit);
         }
     };
+    List.prototype.getFirstItem = function () {
+        if (this.ul.children.length > 0) {
+            return this.ul.children[0];
+        }
+        return null;
+    };
     return List;
 })();

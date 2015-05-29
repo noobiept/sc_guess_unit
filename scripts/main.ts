@@ -108,6 +108,19 @@ function initMenu()
         {
         LIST.search( event.srcElement.value );
         });
+    SEARCH_ELEMENT.addEventListener( 'keyup', function( event )
+        {
+            // on enter, try to guess the first list item
+        if ( event.keyCode === Utilities.KEY_CODE.enter )
+            {
+            var first = LIST.getFirstItem();
+
+            if ( first )
+                {
+                guess( first.innerText );
+                }
+            }
+        })
     }
 
 
@@ -139,11 +152,14 @@ function start()
  */
 export function guess( unitName: string )
     {
+    var hasEnded = false;
+
     if ( unitName === CURRENT_UNIT )
         {
         setScore( SCORE + 10 );
         showMessage( 'Correct!', 'correct' );
-        getNextUnit();
+
+        hasEnded = getNextUnit();
 
             // clear the search (in case it was used to get the correct unit)
         if ( SEARCH_ELEMENT.value !== '' )
@@ -159,12 +175,18 @@ export function guess( unitName: string )
         showMessage( 'Incorrect!', 'incorrect' );
         }
 
-    SEARCH_ELEMENT.focus();
+
+    if ( !hasEnded )
+        {
+        SEARCH_ELEMENT.focus();
+        }
     }
 
 
 /**
  * Get a random new unit, or end the game if we've passed through all of them.
+ *
+ * @return Whether the game has ended or not.
  */
 function getNextUnit()
     {
@@ -187,7 +209,10 @@ function getNextUnit()
     else
         {
         gameOver();
+        return true;
         }
+
+    return false;
     }
 
 
@@ -198,6 +223,9 @@ function gameOver()
 
         // clear the timer interval
     window.clearInterval( TIMER_ID );
+
+        // remove focus from the search element
+    SEARCH_ELEMENT.blur();
 
 
         // show a final message with the score

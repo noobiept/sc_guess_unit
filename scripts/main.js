@@ -88,6 +88,15 @@ var Main;
         SEARCH_ELEMENT.addEventListener('input', function (event) {
             LIST.search(event.srcElement.value);
         });
+        SEARCH_ELEMENT.addEventListener('keyup', function (event) {
+            // on enter, try to guess the first list item
+            if (event.keyCode === Utilities.KEY_CODE.enter) {
+                var first = LIST.getFirstItem();
+                if (first) {
+                    guess(first.innerText);
+                }
+            }
+        });
     }
     /**
      * Start a new game.
@@ -109,10 +118,11 @@ var Main;
      * Check if a guess is correct.
      */
     function guess(unitName) {
+        var hasEnded = false;
         if (unitName === CURRENT_UNIT) {
             setScore(SCORE + 10);
             showMessage('Correct!', 'correct');
-            getNextUnit();
+            hasEnded = getNextUnit();
             // clear the search (in case it was used to get the correct unit)
             if (SEARCH_ELEMENT.value !== '') {
                 SEARCH_ELEMENT.value = '';
@@ -123,11 +133,15 @@ var Main;
             setScore(SCORE - 5);
             showMessage('Incorrect!', 'incorrect');
         }
-        SEARCH_ELEMENT.focus();
+        if (!hasEnded) {
+            SEARCH_ELEMENT.focus();
+        }
     }
     Main.guess = guess;
     /**
      * Get a random new unit, or end the game if we've passed through all of them.
+     *
+     * @return Whether the game has ended or not.
      */
     function getNextUnit() {
         setUnitsLeft(UNITS_LEFT.length);
@@ -141,13 +155,17 @@ var Main;
         }
         else {
             gameOver();
+            return true;
         }
+        return false;
     }
     function gameOver() {
         // the audio may be playing
         AUDIO_ELEMENT.pause();
         // clear the timer interval
         window.clearInterval(TIMER_ID);
+        // remove focus from the search element
+        SEARCH_ELEMENT.blur();
         // show a final message with the score
         // restart the game when 'ok' is pressed
         var ok = new Game.Html.Button({
