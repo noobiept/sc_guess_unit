@@ -12,13 +12,6 @@ ul
     }
 
 
-.List
-    {
-    height: 300px;
-    overflow-y: scroll;
-    }
-
-
 .List li
     {
     display: inline-block;
@@ -96,8 +89,71 @@ ul
     }
 
 
-#UnitsLeft, #TriesLeft
+#UnitsLeft, #Score
     {
     font-weight: bold;
     color: blue;
+    }
+
+
+    /* ---- Message ---- */
+
+.Game-Message-container
+    {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: aliceblue;
+    }
+
+
+.Game-Message-container .Game-Button
+    {
+    color: cornflowerblue;
+    }
+
+.Game-Message-Buttons
+    {
+    margin-top: 10px;
+    text-align: right;
+    }
+
+.Game-Message-Buttons > *
+    {
+    display: inline-block;
+    padding: 2px 5px;
+    margin: 0 5px;
+    }
+
+.Game-Message-Buttons .Game-Button
+    {
+    background-color: cornflowerblue;
+    color: aliceblue;
+    }
+
+.Game-Message-background
+    {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    }
+
+.Game-Message-container .Game-Text
+    {
+    text-align: right;
+    }
+
+.Game-Button
+    {
+    cursor: pointer;
+    }
+
+.Game-Button:hover
+    {
+    text-decoration: underline;
     }

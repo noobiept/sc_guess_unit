@@ -1,3 +1,4 @@
+/// <reference path="../libraries/definitions/tsd.d.ts" />
 /// <reference path="list.ts" />
 window.onload = function () {
     Main.init();
@@ -55,13 +56,13 @@ var Main;
     };
     // html elements
     var MENU_UNITS_LEFT;
-    var MENU_TRIES_LEFT;
+    var MENU_SCORE;
     var AUDIO_ELEMENT;
     var MESSAGE_ELEMENT;
     // game values
     var CURRENT_UNIT = '';
     var UNITS_LEFT = [];
-    var CURRENT_TRIES_LEFT = 3;
+    var SCORE = 0;
     var MESSAGE_ID;
     var LIST;
     function init() {
@@ -72,18 +73,27 @@ var Main;
             units_info: UNITS_NAMES,
             container: document.body
         });
-        UNITS_LEFT = Object.keys(UNITS_NAMES);
-        getNextUnit();
-        updateMenuValues();
+        start();
     }
     Main.init = init;
     function initMenu() {
         MENU_UNITS_LEFT = document.querySelector('#UnitsLeft');
-        MENU_TRIES_LEFT = document.querySelector('#TriesLeft');
+        MENU_SCORE = document.querySelector('#Score');
         var search = document.querySelector('#Search');
         search.addEventListener('input', function (event) {
             LIST.search(event.srcElement.value);
         });
+    }
+    /**
+     * Start a new game.
+     */
+    function start() {
+        // reset the state
+        CURRENT_UNIT = '';
+        UNITS_LEFT = Object.keys(UNITS_NAMES);
+        SCORE = 0;
+        // start the game
+        getNextUnit();
     }
     function guess(unitName) {
         if (unitName === CURRENT_UNIT) {
@@ -92,15 +102,11 @@ var Main;
         }
         else {
             showMessage('Incorrect!', 'incorrect');
-            CURRENT_TRIES_LEFT--;
-            updateMenuValues();
-            if (CURRENT_TRIES_LEFT < 0) {
-                gameOver();
-            }
         }
     }
     Main.guess = guess;
     function getNextUnit() {
+        updateMenuValues();
         var length = UNITS_LEFT.length;
         if (length > 0) {
             // random position
@@ -112,14 +118,28 @@ var Main;
             AUDIO_ELEMENT.play();
         }
         else {
-            showMessage('You Won!');
             gameOver();
         }
     }
     function gameOver() {
+        // the audio may be playing
+        AUDIO_ELEMENT.pause();
+        var ok = new Game.Html.Button({
+            value: 'Ok',
+            callback: function (button) {
+                message.clear();
+                start();
+            }
+        });
+        var message = new Game.Message({
+            body: ['You Won!', 'Score: ' + SCORE],
+            buttons: ok,
+            container: document.body,
+            background: true
+        });
     }
     function updateMenuValues() {
-        MENU_TRIES_LEFT.innerText = CURRENT_TRIES_LEFT;
+        MENU_SCORE.innerText = SCORE;
         MENU_UNITS_LEFT.innerText = UNITS_LEFT.length;
     }
     function showMessage(text, className) {
