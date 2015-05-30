@@ -3,14 +3,12 @@ body
     text-align: center;
     }
 
-
 ul
     {
     margin: 0;
     padding: 0;
     list-style-type: none;
     }
-
 
 .List li
     {
@@ -20,49 +18,41 @@ ul
     cursor: pointer;
     }
 
-
 #Audio
     {
     display: block;
     margin: auto;
     }
 
-
 .zerg
     {
     background-color: rgba(128, 0, 128, 0.1);
     }
-
 
 .zerg:hover
     {
     background-color: rgba(128, 0, 128, 0.2);
     }
 
-
 .protoss
     {
     background-color: rgba(255, 255, 0, 0.1);
     }
-
 
 .protoss:hover
     {
     background-color: rgba(255, 255, 0, 0.2);
     }
 
-
 .terran
     {
     background-color: rgba(0, 0, 255, 0.1);
     }
 
-
 .terran:hover
     {
     background-color: rgba(0, 0, 255, 0.2);
     }
-
 
 #Message
     {
@@ -70,29 +60,37 @@ ul
     font-size: 150%;
     }
 
-
 .correct
     {
     color: green;
     }
-
 
 .incorrect
     {
     color: red;
     }
 
-
 #GameInfo, #Message, #List, #SearchContainer
     {
     margin: 12px;
     }
 
-
 #UnitsLeft, #Score
     {
     font-weight: bold;
+    color: green;
+    }
+
+#Skip
+    {
+    cursor: pointer;
     color: blue;
+    padding: 5px;
+    }
+
+#Skip:hover
+    {
+    text-decoration: underline;
     }
 
 

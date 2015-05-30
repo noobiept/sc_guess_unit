@@ -36,6 +36,9 @@ class List
         }
 
 
+    /**
+     * Called when the player clicks on an item off the list. Will try to guess that unit name.
+     */
     clickListener( event: MouseEvent )
         {
         var sourceElement = <HTMLElement> event.srcElement;
@@ -76,6 +79,9 @@ class List
         }
 
 
+    /**
+     * Build a new list, with the names given.
+     */
     buildList( unitNames: string[] )
         {
         var length = unitNames.length;
@@ -94,6 +100,9 @@ class List
         }
 
 
+    /**
+     * Get the first list item, or `null` if the list is empty.
+     */
     getFirstItem()
         {
         if ( this.ul.children.length > 0 )

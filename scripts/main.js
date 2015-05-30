@@ -97,6 +97,10 @@ var Main;
                 }
             }
         });
+        var skip = document.querySelector('#Skip');
+        skip.addEventListener('click', function (event) {
+            guess();
+        });
     }
     /**
      * Start a new game.
@@ -115,13 +119,23 @@ var Main;
         SEARCH_ELEMENT.focus();
     }
     /**
-     * Check if a guess is correct.
+     * Check if a guess is correct. If no argument is provided, it means to skip the current unit.
      */
     function guess(unitName) {
+        var skip = false;
         var hasEnded = false;
-        if (unitName === CURRENT_UNIT) {
-            setScore(SCORE + 10);
-            showMessage('Correct!', 'correct');
+        if (typeof unitName === 'undefined') {
+            skip = true;
+        }
+        if (unitName === CURRENT_UNIT || skip === true) {
+            if (skip) {
+                setScore(SCORE - 10);
+                showMessage('Skip!');
+            }
+            else {
+                setScore(SCORE + 10);
+                showMessage('Correct!', 'correct');
+            }
             hasEnded = getNextUnit();
             // clear the search (in case it was used to get the correct unit)
             if (SEARCH_ELEMENT.value !== '') {
@@ -182,13 +196,23 @@ var Main;
             background: true
         });
     }
+    /**
+     * Set a new score, and update the menu element as well.
+     */
     function setScore(value) {
         SCORE = value;
         MENU_SCORE.innerText = value;
     }
+    /**
+     * Update the menu element with the current number of units left.
+     */
     function setUnitsLeft(value) {
         MENU_UNITS_LEFT.innerText = value;
     }
+    /**
+     * @param text The message to show.
+     * @param className Optional class name to add to the html element, for some specific styling.
+     */
     function showMessage(text, className) {
         if (typeof className === 'undefined') {
             className = '';

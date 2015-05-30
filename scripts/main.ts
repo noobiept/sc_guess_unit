@@ -120,7 +120,14 @@ function initMenu()
                 guess( first.innerText );
                 }
             }
-        })
+        });
+
+    var skip = document.querySelector( '#Skip' );
+
+    skip.addEventListener( 'click', function( event )
+        {
+        guess();
+        });
     }
 
 
@@ -148,16 +155,34 @@ function start()
 
 
 /**
- * Check if a guess is correct.
+ * Check if a guess is correct. If no argument is provided, it means to skip the current unit.
  */
-export function guess( unitName: string )
+export function guess( unitName?: string )
     {
+    var skip = false;
     var hasEnded = false;
 
-    if ( unitName === CURRENT_UNIT )
+    if ( typeof unitName === 'undefined' )
         {
-        setScore( SCORE + 10 );
-        showMessage( 'Correct!', 'correct' );
+        skip = true;
+        }
+
+
+    if ( unitName === CURRENT_UNIT ||
+         skip === true )
+        {
+        if ( skip )
+            {
+            setScore( SCORE - 10 );
+            showMessage( 'Skip!' );
+            }
+
+        else
+            {
+            setScore( SCORE + 10 );
+            showMessage( 'Correct!', 'correct' );
+            }
+
 
         hasEnded = getNextUnit();
 
@@ -248,19 +273,29 @@ function gameOver()
     }
 
 
-function setScore( value )
+/**
+ * Set a new score, and update the menu element as well.
+ */
+function setScore( value: number )
     {
     SCORE = value;
     MENU_SCORE.innerText = value;
     }
 
 
-function setUnitsLeft( value )
+/**
+ * Update the menu element with the current number of units left.
+ */
+function setUnitsLeft( value: number )
     {
     MENU_UNITS_LEFT.innerText = value;
     }
 
 
+/**
+ * @param text The message to show.
+ * @param className Optional class name to add to the html element, for some specific styling.
+ */
 function showMessage( text: string, className?: string )
     {
     if ( typeof className === 'undefined' )
