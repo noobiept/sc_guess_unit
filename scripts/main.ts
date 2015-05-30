@@ -65,6 +65,7 @@ var UNITS_NAMES = {
     // html elements
 var MENU_UNITS_LEFT;
 var MENU_SCORE;
+var MENU_HIGHEST_SCORE;
 var AUDIO_ELEMENT;
 var MESSAGE_ELEMENT;
 var SEARCH_ELEMENT;
@@ -81,6 +82,7 @@ var LIST;
 
 export function init()
     {
+    Game.HighScore.init( 1, 'sc_guess_unit_high_score', false );
     initMenu();
 
     AUDIO_ELEMENT = document.querySelector( '#Audio' );
@@ -102,8 +104,10 @@ function initMenu()
     {
     MENU_UNITS_LEFT = document.querySelector( '#UnitsLeft' );
     MENU_SCORE = document.querySelector( '#Score' );
+    MENU_HIGHEST_SCORE = document.querySelector( '#HighestScore' );
     SEARCH_ELEMENT = document.querySelector( '#Search' );
 
+        // add the event listeners to the search element
     SEARCH_ELEMENT.addEventListener( 'input', function( event )
         {
         LIST.search( event.srcElement.value );
@@ -122,12 +126,16 @@ function initMenu()
             }
         });
 
+        // add event listener to the skip element
     var skip = document.querySelector( '#Skip' );
 
     skip.addEventListener( 'click', function( event )
         {
         guess();
         });
+
+        // update the highest score element
+    updateHighestScore();
     }
 
 
@@ -174,7 +182,7 @@ export function guess( unitName?: string )
         if ( skip )
             {
             setScore( SCORE - 10 );
-            showMessage( 'Skip!' );
+            showMessage( CURRENT_UNIT );
             }
 
         else
@@ -252,6 +260,11 @@ function gameOver()
         // remove focus from the search element
     SEARCH_ELEMENT.blur();
 
+        // compare this score with the highest score
+        // and update the menu element with the highest score
+    Game.HighScore.add( 'score', SCORE );
+    updateHighestScore();
+
 
         // show a final message with the score
         // restart the game when 'ok' is pressed
@@ -289,6 +302,25 @@ function setScore( value: number )
 function setUnitsLeft( value: number )
     {
     MENU_UNITS_LEFT.innerText = value;
+    }
+
+
+/**
+ * Update the `highest score` menu element with the current highest score.
+ */
+function updateHighestScore()
+    {
+    var score = Game.HighScore.get( 'score' );
+
+    if ( score && score.length > 0 )
+        {
+        MENU_HIGHEST_SCORE.innerText = score[ 0 ];
+        }
+
+    else
+        {
+        MENU_HIGHEST_SCORE.innerText = '---';
+        }
     }
 
 

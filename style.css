@@ -75,7 +75,7 @@ ul
     margin: 12px;
     }
 
-#UnitsLeft, #Score
+#UnitsLeft, #Score, #HighestScore
     {
     font-weight: bold;
     color: green;
