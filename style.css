@@ -13,7 +13,7 @@ ul
 .List li
     {
     display: inline-block;
-    width: 120px;
+    width: 125px;
     padding: 10px 20px;
     cursor: pointer;
     }

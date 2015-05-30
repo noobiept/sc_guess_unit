@@ -21,7 +21,7 @@ var UNITS_NAMES = {
     overseer: { race: 'zerg' },
     queen: { race: 'zerg' },
     roach: { race: 'zerg' },
-    swarm_host: { race: 'zerg' },
+    'swarm host': { race: 'zerg' },
     ultralisk: { race: 'zerg' },
     viper: { race: 'zerg' },
     zergling: { race: 'zerg' },
@@ -29,8 +29,8 @@ var UNITS_NAMES = {
     archon: { race: 'protoss' },
     carrier: { race: 'protoss' },
     colossus: { race: 'protoss' },
-    dark_templar: { race: 'protoss' },
-    high_templar: { race: 'protoss' },
+    'dark templar': { race: 'protoss' },
+    'high templar': { race: 'protoss' },
     immortal: { race: 'protoss' },
     mothership: { race: 'protoss' },
     observer: { race: 'protoss' },
@@ -40,8 +40,8 @@ var UNITS_NAMES = {
     sentry: { race: 'protoss' },
     stalker: { race: 'protoss' },
     tempest: { race: 'protoss' },
-    void_ray: { race: 'protoss' },
-    warp_prism: { race: 'protoss' },
+    'void ray': { race: 'protoss' },
+    'warp prism': { race: 'protoss' },
     zealot: { race: 'protoss' },
 
     banshee: { race: 'terran' },
@@ -55,10 +55,10 @@ var UNITS_NAMES = {
     raven: { race: 'terran' },
     reaper: { race: 'terran' },
     scv: { race: 'terran' },
-    siege_tank: { race: 'terran' },
+    'siege tank': { race: 'terran' },
     thor: { race: 'terran' },
     viking: { race: 'terran' },
-    widow_mine: { race: 'terran' }
+    'widow mine': { race: 'terran' }
 };
 
 

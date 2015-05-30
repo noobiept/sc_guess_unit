@@ -17,15 +17,15 @@ var Main;
         overseer: { race: 'zerg' },
         queen: { race: 'zerg' },
         roach: { race: 'zerg' },
-        swarm_host: { race: 'zerg' },
+        'swarm host': { race: 'zerg' },
         ultralisk: { race: 'zerg' },
         viper: { race: 'zerg' },
         zergling: { race: 'zerg' },
         archon: { race: 'protoss' },
         carrier: { race: 'protoss' },
         colossus: { race: 'protoss' },
-        dark_templar: { race: 'protoss' },
-        high_templar: { race: 'protoss' },
+        'dark templar': { race: 'protoss' },
+        'high templar': { race: 'protoss' },
         immortal: { race: 'protoss' },
         mothership: { race: 'protoss' },
         observer: { race: 'protoss' },
@@ -35,8 +35,8 @@ var Main;
         sentry: { race: 'protoss' },
         stalker: { race: 'protoss' },
         tempest: { race: 'protoss' },
-        void_ray: { race: 'protoss' },
-        warp_prism: { race: 'protoss' },
+        'void ray': { race: 'protoss' },
+        'warp prism': { race: 'protoss' },
         zealot: { race: 'protoss' },
         banshee: { race: 'terran' },
         battlecruiser: { race: 'terran' },
@@ -49,10 +49,10 @@ var Main;
         raven: { race: 'terran' },
         reaper: { race: 'terran' },
         scv: { race: 'terran' },
-        siege_tank: { race: 'terran' },
+        'siege tank': { race: 'terran' },
         thor: { race: 'terran' },
         viking: { race: 'terran' },
-        widow_mine: { race: 'terran' }
+        'widow mine': { race: 'terran' }
     };
     // html elements
     var MENU_UNITS_LEFT;
