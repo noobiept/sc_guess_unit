@@ -16,7 +16,10 @@
 <body>
 
     <h1>Guess the Unit</h1>
-    <audio id="Audio" controls></audio>
+
+    <div id="AudioContainer">
+        <audio id="Audio" controls></audio> <span id="Reload" class="button">Reload</span>
+    </div>
 
     <ul id="GameInfo">
         <li>Units Left: <span id="UnitsLeft"></span></li>
@@ -26,7 +29,7 @@
 
     <div id="Message">----</div>
     <div id="SearchContainer">
-        <span>Search</span> <input id="Search" type="text" /> <span id="Skip">Skip</span>
+        <span>Search</span> <input id="Search" type="text" /> <span id="Skip" class="button">Skip</span>
     </div>
 </body>
 </html>

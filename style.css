@@ -1,6 +1,7 @@
 body
     {
     text-align: center;
+    font-size: 24px;
     }
 
 ul
@@ -18,11 +19,6 @@ ul
     cursor: pointer;
     }
 
-#Audio
-    {
-    display: block;
-    margin: auto;
-    }
 
 .zerg
     {
@@ -70,7 +66,7 @@ ul
     color: red;
     }
 
-#GameInfo, #Message, #List, #SearchContainer
+#GameInfo, #Message, #List, #SearchContainer, #AudioContainer
     {
     margin: 12px;
     }
@@ -81,14 +77,14 @@ ul
     color: green;
     }
 
-#Skip
+.button
     {
     cursor: pointer;
     color: blue;
     padding: 5px;
     }
 
-#Skip:hover
+.button:hover
     {
     text-decoration: underline;
     }

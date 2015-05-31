@@ -41,12 +41,12 @@ class List
      */
     clickListener( event: MouseEvent )
         {
-        var sourceElement = <HTMLElement> event.srcElement;
+        var sourceElement = <HTMLElement> event.target;
 
             // don't try to guess if it was clicked on the ul
         if ( sourceElement.tagName.toLowerCase() === 'li' )
             {
-            Main.guess( sourceElement.innerText );
+            Main.guess( sourceElement.innerHTML );
             }
         }
 

@@ -110,7 +110,7 @@ function initMenu()
         // add the event listeners to the search element
     SEARCH_ELEMENT.addEventListener( 'input', function( event )
         {
-        LIST.search( event.srcElement.value );
+        LIST.search( event.target.value );
         });
     SEARCH_ELEMENT.addEventListener( 'keyup', function( event )
         {
@@ -121,7 +121,7 @@ function initMenu()
 
             if ( first )
                 {
-                guess( first.innerText );
+                guess( first.innerHTML );
                 }
             }
         });
@@ -133,6 +133,18 @@ function initMenu()
         {
         guess();
         });
+
+        // add event listener to the reload element
+    var reload = document.querySelector( '#Reload' );
+
+    reload.addEventListener( 'click', function( event )
+        {
+        if ( AUDIO_ELEMENT )
+            {
+            AUDIO_ELEMENT.load();
+            }
+        });
+
 
         // update the highest score element
     updateHighestScore();
@@ -234,7 +246,16 @@ function getNextUnit()
 
         CURRENT_UNIT = UNITS_LEFT.splice( position, 1 )[ 0 ];
 
-        AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.ogg';
+        if ( AUDIO_ELEMENT.canPlayType( 'audio/ogg' ) )
+            {
+            AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.ogg';
+            }
+
+        else
+            {
+            AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.mp3';
+            }
+
         AUDIO_ELEMENT.play();
         }
 
@@ -292,7 +313,7 @@ function gameOver()
 function setScore( value: number )
     {
     SCORE = value;
-    MENU_SCORE.innerText = value;
+    MENU_SCORE.innerHTML = value;
     }
 
 
@@ -301,7 +322,7 @@ function setScore( value: number )
  */
 function setUnitsLeft( value: number )
     {
-    MENU_UNITS_LEFT.innerText = value;
+    MENU_UNITS_LEFT.innerHTML = value;
     }
 
 
@@ -314,12 +335,12 @@ function updateHighestScore()
 
     if ( score && score.length > 0 )
         {
-        MENU_HIGHEST_SCORE.innerText = score[ 0 ];
+        MENU_HIGHEST_SCORE.innerHTML = score[ 0 ];
         }
 
     else
         {
-        MENU_HIGHEST_SCORE.innerText = '---';
+        MENU_HIGHEST_SCORE.innerHTML = '---';
         }
     }
 
@@ -338,12 +359,12 @@ function showMessage( text: string, className?: string )
     window.clearTimeout( MESSAGE_ID );
 
     MESSAGE_ELEMENT.className = className;
-    MESSAGE_ELEMENT.innerText = text;
+    MESSAGE_ELEMENT.innerHTML = text;
 
     MESSAGE_ID = window.setTimeout( function()
         {
         MESSAGE_ELEMENT.className = '';
-        MESSAGE_ELEMENT.innerText = '----';
+        MESSAGE_ELEMENT.innerHTML = '----';
         }, 2000 );
     }
 }

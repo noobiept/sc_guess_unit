@@ -90,14 +90,14 @@ var Main;
         SEARCH_ELEMENT = document.querySelector('#Search');
         // add the event listeners to the search element
         SEARCH_ELEMENT.addEventListener('input', function (event) {
-            LIST.search(event.srcElement.value);
+            LIST.search(event.target.value);
         });
         SEARCH_ELEMENT.addEventListener('keyup', function (event) {
             // on enter, try to guess the first list item
             if (event.keyCode === Utilities.KEY_CODE.enter) {
                 var first = LIST.getFirstItem();
                 if (first) {
-                    guess(first.innerText);
+                    guess(first.innerHTML);
                 }
             }
         });
@@ -105,6 +105,13 @@ var Main;
         var skip = document.querySelector('#Skip');
         skip.addEventListener('click', function (event) {
             guess();
+        });
+        // add event listener to the reload element
+        var reload = document.querySelector('#Reload');
+        reload.addEventListener('click', function (event) {
+            if (AUDIO_ELEMENT) {
+                AUDIO_ELEMENT.load();
+            }
         });
         // update the highest score element
         updateHighestScore();
@@ -171,7 +178,12 @@ var Main;
             // random position
             var position = Math.floor(Math.random() * length);
             CURRENT_UNIT = UNITS_LEFT.splice(position, 1)[0];
-            AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.ogg';
+            if (AUDIO_ELEMENT.canPlayType('audio/ogg')) {
+                AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.ogg';
+            }
+            else {
+                AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.mp3';
+            }
             AUDIO_ELEMENT.play();
         }
         else {
@@ -212,13 +224,13 @@ var Main;
      */
     function setScore(value) {
         SCORE = value;
-        MENU_SCORE.innerText = value;
+        MENU_SCORE.innerHTML = value;
     }
     /**
      * Update the menu element with the current number of units left.
      */
     function setUnitsLeft(value) {
-        MENU_UNITS_LEFT.innerText = value;
+        MENU_UNITS_LEFT.innerHTML = value;
     }
     /**
      * Update the `highest score` menu element with the current highest score.
@@ -226,10 +238,10 @@ var Main;
     function updateHighestScore() {
         var score = Game.HighScore.get('score');
         if (score && score.length > 0) {
-            MENU_HIGHEST_SCORE.innerText = score[0];
+            MENU_HIGHEST_SCORE.innerHTML = score[0];
         }
         else {
-            MENU_HIGHEST_SCORE.innerText = '---';
+            MENU_HIGHEST_SCORE.innerHTML = '---';
         }
     }
     /**
@@ -242,10 +254,10 @@ var Main;
         }
         window.clearTimeout(MESSAGE_ID);
         MESSAGE_ELEMENT.className = className;
-        MESSAGE_ELEMENT.innerText = text;
+        MESSAGE_ELEMENT.innerHTML = text;
         MESSAGE_ID = window.setTimeout(function () {
             MESSAGE_ELEMENT.className = '';
-            MESSAGE_ELEMENT.innerText = '----';
+            MESSAGE_ELEMENT.innerHTML = '----';
         }, 2000);
     }
 })(Main || (Main = {}));

@@ -19,10 +19,10 @@ var List = (function () {
      * Called when the player clicks on an item off the list. Will try to guess that unit name.
      */
     List.prototype.clickListener = function (event) {
-        var sourceElement = event.srcElement;
+        var sourceElement = event.target;
         // don't try to guess if it was clicked on the ul
         if (sourceElement.tagName.toLowerCase() === 'li') {
-            Main.guess(sourceElement.innerText);
+            Main.guess(sourceElement.innerHTML);
         }
     };
     /**
