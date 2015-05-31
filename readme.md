@@ -1,3 +1,9 @@
+Link
+====
+
+You can try it out here: [http://sc-guess-unit.herokuapp.com/](http://sc-guess-unit.herokuapp.com/)
+
+
 Gameplay
 ========
 
