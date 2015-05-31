@@ -1,4 +1,4 @@
-/// <reference path="../libraries/definitions/tsd.d.ts" />
+/// <reference path="../libraries/definitions/game_engine.1.1.1.d.ts" />
 /// <reference path="list.ts" />
 
 window.onload = function()

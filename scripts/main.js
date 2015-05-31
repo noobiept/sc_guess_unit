@@ -1,5 +1,3 @@
-/// <reference path="../libraries/definitions/tsd.d.ts" />
-/// <reference path="list.ts" />
 window.onload = function () {
     Main.init();
 };
@@ -54,14 +52,12 @@ var Main;
         viking: { race: 'terran' },
         'widow mine': { race: 'terran' }
     };
-    // html elements
     var MENU_UNITS_LEFT;
     var MENU_SCORE;
     var MENU_HIGHEST_SCORE;
     var AUDIO_ELEMENT;
     var MESSAGE_ELEMENT;
     var SEARCH_ELEMENT;
-    // game values
     var CURRENT_UNIT = '';
     var UNITS_LEFT = [];
     var SCORE = 0;
@@ -80,20 +76,15 @@ var Main;
         start();
     }
     Main.init = init;
-    /**
-     * Initialize the menu elements.
-     */
     function initMenu() {
         MENU_UNITS_LEFT = document.querySelector('#UnitsLeft');
         MENU_SCORE = document.querySelector('#Score');
         MENU_HIGHEST_SCORE = document.querySelector('#HighestScore');
         SEARCH_ELEMENT = document.querySelector('#Search');
-        // add the event listeners to the search element
         SEARCH_ELEMENT.addEventListener('input', function (event) {
             LIST.search(event.target.value);
         });
         SEARCH_ELEMENT.addEventListener('keyup', function (event) {
-            // on enter, try to guess the first list item
             if (event.keyCode === Utilities.KEY_CODE.enter) {
                 var first = LIST.getFirstItem();
                 if (first) {
@@ -101,40 +92,28 @@ var Main;
                 }
             }
         });
-        // add event listener to the skip element
         var skip = document.querySelector('#Skip');
         skip.addEventListener('click', function (event) {
             guess();
         });
-        // add event listener to the reload element
         var reload = document.querySelector('#Reload');
         reload.addEventListener('click', function (event) {
             if (AUDIO_ELEMENT) {
                 AUDIO_ELEMENT.load();
             }
         });
-        // update the highest score element
         updateHighestScore();
     }
-    /**
-     * Start a new game.
-     */
     function start() {
-        // reset the state
         CURRENT_UNIT = '';
         UNITS_LEFT = Object.keys(UNITS_NAMES);
         setScore(100);
-        // reduce the score every second
         TIMER_ID = window.setInterval(function () {
             setScore(SCORE - 1);
         }, 1000);
-        // start the game
         getNextUnit();
         SEARCH_ELEMENT.focus();
     }
-    /**
-     * Check if a guess is correct. If no argument is provided, it means to skip the current unit.
-     */
     function guess(unitName) {
         var skip = false;
         var hasEnded = false;
@@ -151,7 +130,6 @@ var Main;
                 showMessage('Correct!', 'correct');
             }
             hasEnded = getNextUnit();
-            // clear the search (in case it was used to get the correct unit)
             if (SEARCH_ELEMENT.value !== '') {
                 SEARCH_ELEMENT.value = '';
                 LIST.search('');
@@ -166,16 +144,10 @@ var Main;
         }
     }
     Main.guess = guess;
-    /**
-     * Get a random new unit, or end the game if we've passed through all of them.
-     *
-     * @return Whether the game has ended or not.
-     */
     function getNextUnit() {
         setUnitsLeft(UNITS_LEFT.length);
         var length = UNITS_LEFT.length;
         if (length > 0) {
-            // random position
             var position = Math.floor(Math.random() * length);
             CURRENT_UNIT = UNITS_LEFT.splice(position, 1)[0];
             if (AUDIO_ELEMENT.canPlayType('audio/ogg')) {
@@ -193,18 +165,11 @@ var Main;
         return false;
     }
     function gameOver() {
-        // the audio may be playing
         AUDIO_ELEMENT.pause();
-        // clear the timer interval
         window.clearInterval(TIMER_ID);
-        // remove focus from the search element
         SEARCH_ELEMENT.blur();
-        // compare this score with the highest score
-        // and update the menu element with the highest score
         Game.HighScore.add('score', SCORE);
         updateHighestScore();
-        // show a final message with the score
-        // restart the game when 'ok' is pressed
         var ok = new Game.Html.Button({
             value: 'Ok',
             callback: function (button) {
@@ -219,22 +184,13 @@ var Main;
             background: true
         });
     }
-    /**
-     * Set a new score, and update the menu element as well.
-     */
     function setScore(value) {
         SCORE = value;
         MENU_SCORE.innerHTML = value;
     }
-    /**
-     * Update the menu element with the current number of units left.
-     */
     function setUnitsLeft(value) {
         MENU_UNITS_LEFT.innerHTML = value;
     }
-    /**
-     * Update the `highest score` menu element with the current highest score.
-     */
     function updateHighestScore() {
         var score = Game.HighScore.get('score');
         if (score && score.length > 0) {
@@ -244,10 +200,6 @@ var Main;
             MENU_HIGHEST_SCORE.innerHTML = '---';
         }
     }
-    /**
-     * @param text The message to show.
-     * @param className Optional class name to add to the html element, for some specific styling.
-     */
     function showMessage(text, className) {
         if (typeof className === 'undefined') {
             className = '';
@@ -261,3 +213,4 @@ var Main;
         }, 2000);
     }
 })(Main || (Main = {}));
+//# sourceMappingURL=main.js.map
