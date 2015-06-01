@@ -11,10 +11,13 @@ module Main
 {
 var UNITS_NAMES = {
     baneling: { race: 'zerg' },
+    broodling: { race: 'zerg' },
     broodlord: { race: 'zerg' },
+    changeling: { race: 'zerg' },
     corruptor: { race: 'zerg' },
     drone: { race: 'zerg' },
     hydralisk: { race: 'zerg' },
+    'infested terran': { race: 'zerg' },
     infestor: { race: 'zerg' },
     mutalisk: { race: 'zerg' },
     overlord: { race: 'zerg' },
@@ -52,6 +55,7 @@ var UNITS_NAMES = {
     marauder: { race: 'terran' },
     marine: { race: 'terran' },
     medivac: { race: 'terran' },
+    mule: { race: 'terran' },
     raven: { race: 'terran' },
     reaper: { race: 'terran' },
     scv: { race: 'terran' },
