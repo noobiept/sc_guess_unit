@@ -31,8 +31,20 @@
 
     <div id="Message">----</div>
 
-    <div id="SearchContainer">
-        <span>Search</span> <input id="Search" type="text" /> <span id="Skip" class="button">Skip</span> <span id="Restart" class="button">Restart</span>
-    </div>
+    <ul id="Menu">
+        <li>
+            <ul id="ListFilters">
+                <li id="ListAll" class="button selected">All</li>
+                <li id="ListOnlyZerg" class="button">Zerg</li>
+                <li id="ListOnlyProtoss" class="button">Protoss</li>
+                <li id="ListOnlyTerran" class="button">Terran</li>
+            </ul>
+        </li>
+        <li>
+            <span>Search</span> <input id="Search" type="text" />
+        </li>
+        <li id="Skip" class="button">Skip</li>
+        <li id="Restart" class="button">Restart</li>
+    </ul>
 </body>
 </html>

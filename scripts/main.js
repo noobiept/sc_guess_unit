@@ -62,6 +62,7 @@ var Main;
     var AUDIO_ELEMENT;
     var MESSAGE_ELEMENT;
     var SEARCH_ELEMENT;
+    var CURRENT_SELECTED_FILTER;
     var CURRENT_UNIT = '';
     var UNITS_LEFT = [];
     var SCORE = 0;
@@ -87,6 +88,8 @@ var Main;
         SEARCH_ELEMENT = document.querySelector('#Search');
         SEARCH_ELEMENT.addEventListener('input', function (event) {
             LIST.search(event.target.value);
+            var listAll = document.querySelector('#ListAll');
+            updateSelectedListFilter(listAll);
         });
         SEARCH_ELEMENT.addEventListener('keyup', function (event) {
             if (event.keyCode === Utilities.KEY_CODE.enter) {
@@ -110,6 +113,14 @@ var Main;
         restart.addEventListener('click', function (event) {
             clear();
             start();
+        });
+        var listFilters = document.querySelector('#ListFilters');
+        CURRENT_SELECTED_FILTER = document.querySelector('#ListAll');
+        listFilters.addEventListener('click', function (event) {
+            var target = event.target;
+            if (target.tagName.toLowerCase() === 'li') {
+                filterList(target);
+            }
         });
         updateHighestScore();
     }
@@ -139,10 +150,9 @@ var Main;
                 showMessage('Correct!', 'correct');
             }
             hasEnded = getNextUnit();
-            if (SEARCH_ELEMENT.value !== '') {
-                SEARCH_ELEMENT.value = '';
-                LIST.search('');
-            }
+            SEARCH_ELEMENT.value = '';
+            var listAll = document.querySelector('#ListAll');
+            filterList(listAll);
         }
         else {
             setScore(SCORE - 5);
@@ -223,6 +233,33 @@ var Main;
             MESSAGE_ELEMENT.className = '';
             MESSAGE_ELEMENT.innerHTML = '----';
         }, 2000);
+    }
+    function filterList(element) {
+        var names = Object.keys(UNITS_NAMES);
+        var length = names.length;
+        var race = element.innerHTML.toLowerCase();
+        var filteredNames = [];
+        if (race === 'all') {
+            filteredNames = names;
+        }
+        else {
+            for (var a = 0; a < length; a++) {
+                var name = names[a];
+                var info = UNITS_NAMES[name];
+                if (info.race === race) {
+                    filteredNames.push(name);
+                }
+            }
+        }
+        updateSelectedListFilter(element);
+        LIST.buildList(filteredNames);
+        SEARCH_ELEMENT.value = '';
+        SEARCH_ELEMENT.focus();
+    }
+    function updateSelectedListFilter(element) {
+        CURRENT_SELECTED_FILTER.classList.remove('selected');
+        CURRENT_SELECTED_FILTER = element;
+        CURRENT_SELECTED_FILTER.classList.add('selected');
     }
 })(Main || (Main = {}));
 //# sourceMappingURL=main.js.map

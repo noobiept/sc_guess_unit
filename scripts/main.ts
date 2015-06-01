@@ -73,6 +73,7 @@ var MENU_HIGHEST_SCORE;
 var AUDIO_ELEMENT;
 var MESSAGE_ELEMENT;
 var SEARCH_ELEMENT;
+var CURRENT_SELECTED_FILTER;
 
     // game values
 var CURRENT_UNIT = '';
@@ -115,6 +116,12 @@ function initMenu()
     SEARCH_ELEMENT.addEventListener( 'input', function( event )
         {
         LIST.search( event.target.value );
+
+            // the search is done with all the units, so update the filter element
+        var listAll = <HTMLElement> document.querySelector( '#ListAll' );
+
+        updateSelectedListFilter( listAll );
+
         });
     SEARCH_ELEMENT.addEventListener( 'keyup', function( event )
         {
@@ -156,6 +163,20 @@ function initMenu()
         {
         clear();
         start();
+        });
+
+        // add event listener to the list's filters
+    var listFilters = document.querySelector( '#ListFilters' );
+    CURRENT_SELECTED_FILTER = document.querySelector( '#ListAll' );
+
+    listFilters.addEventListener( 'click', function( event )
+        {
+        var target = <HTMLElement> event.target;
+
+        if ( target.tagName.toLowerCase() === 'li' )
+            {
+            filterList( target );
+            }
         });
 
 
@@ -219,12 +240,12 @@ export function guess( unitName?: string )
 
         hasEnded = getNextUnit();
 
-            // clear the search (in case it was used to get the correct unit)
-        if ( SEARCH_ELEMENT.value !== '' )
-            {
-            SEARCH_ELEMENT.value = '';
-            LIST.search( '' );
-            }
+            // clear the search and the filters (in case it was used to get the correct unit)
+        SEARCH_ELEMENT.value = '';
+
+        var listAll = <HTMLElement> document.querySelector( '#ListAll' );
+
+        filterList( listAll );
         }
 
     else
@@ -385,5 +406,61 @@ function showMessage( text: string, className?: string )
         MESSAGE_ELEMENT.className = '';
         MESSAGE_ELEMENT.innerHTML = '----';
         }, 2000 );
+    }
+
+
+/**
+ * Filter the list, to only show the units of the given race.
+ */
+function filterList( element: HTMLElement )
+    {
+    var names = Object.keys( UNITS_NAMES );
+    var length = names.length;
+    var race = element.innerHTML.toLowerCase();
+
+    var filteredNames = [];
+
+        // show all the units
+    if ( race === 'all' )
+        {
+        filteredNames = names;
+        }
+
+        // value will be 'zerg', 'protoss' or 'terran'
+        // show only the units of the selected race
+    else
+        {
+        for (var a = 0 ; a < length ; a++)
+            {
+            var name = names[ a ];
+            var info = UNITS_NAMES[ name ];
+
+            if ( info.race === race )
+                {
+                filteredNames.push( name );
+                }
+            }
+        }
+
+        // move the 'selected' css class from the previous selected element
+    updateSelectedListFilter( element );
+
+        // show the filtered units only
+    LIST.buildList( filteredNames );
+
+        // clear the search
+    SEARCH_ELEMENT.value = '';
+    SEARCH_ELEMENT.focus();
+    }
+
+
+/**
+ * Move the 'selected' css class from the previous selected element to the new one.
+ */
+function updateSelectedListFilter( element: HTMLElement )
+    {
+    CURRENT_SELECTED_FILTER.classList.remove( 'selected' );
+    CURRENT_SELECTED_FILTER = element;
+    CURRENT_SELECTED_FILTER.classList.add( 'selected' );
     }
 }

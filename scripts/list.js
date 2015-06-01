@@ -32,10 +32,10 @@ var List = (function () {
                 matchValues.push(name);
             }
         }
-        this.ul.innerHTML = '';
         this.buildList(matchValues);
     };
     List.prototype.buildList = function (unitNames) {
+        this.ul.innerHTML = '';
         var length = unitNames.length;
         for (var a = 0; a < length; a++) {
             var unit = document.createElement('li');

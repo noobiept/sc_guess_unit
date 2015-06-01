@@ -71,8 +71,6 @@ class List
                 }
             }
 
-            // clear the previous list
-        this.ul.innerHTML = '';
 
             // add the values that matched the search
         this.buildList( matchValues );
@@ -84,6 +82,9 @@ class List
      */
     buildList( unitNames: string[] )
         {
+            // clear the previous list
+        this.ul.innerHTML = '';
+
         var length = unitNames.length;
 
         for (var a = 0 ; a < length ; a++)
