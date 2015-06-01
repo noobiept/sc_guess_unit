@@ -106,6 +106,11 @@ var Main;
                 AUDIO_ELEMENT.load();
             }
         });
+        var restart = document.querySelector('#Restart');
+        restart.addEventListener('click', function (event) {
+            clear();
+            start();
+        });
         updateHighestScore();
     }
     function start() {
@@ -168,9 +173,12 @@ var Main;
         }
         return false;
     }
-    function gameOver() {
+    function clear() {
         AUDIO_ELEMENT.pause();
         window.clearInterval(TIMER_ID);
+    }
+    function gameOver() {
+        clear();
         SEARCH_ELEMENT.blur();
         Game.HighScore.add('score', SCORE);
         updateHighestScore();

@@ -149,6 +149,15 @@ function initMenu()
             }
         });
 
+        // add event listener to restart the game
+    var restart = document.querySelector( '#Restart' );
+
+    restart.addEventListener( 'click', function( event )
+        {
+        clear();
+        start();
+        });
+
 
         // update the highest score element
     updateHighestScore();
@@ -274,13 +283,19 @@ function getNextUnit()
     }
 
 
-function gameOver()
+function clear()
     {
         // the audio may be playing
     AUDIO_ELEMENT.pause();
 
         // clear the timer interval
     window.clearInterval( TIMER_ID );
+    }
+
+
+function gameOver()
+    {
+    clear();
 
         // remove focus from the search element
     SEARCH_ELEMENT.blur();
