@@ -14,3 +14,10 @@ Unit Sounds
 ===========
 
 The sounds are from the game `starcraft 2`.
+
+
+Dependencies
+============
+
+- [typescript](http://www.typescriptlang.org/) `1.6`
+- [game_engine](https://bitbucket.org/drk4/game_engine) `1.3`

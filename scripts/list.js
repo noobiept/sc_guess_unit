@@ -15,12 +15,19 @@ var List = (function () {
         this.units_info = args.units_info;
         this.buildList(unitsNames);
     }
+    /**
+     * Called when the player clicks on an item off the list. Will try to guess that unit name.
+     */
     List.prototype.clickListener = function (event) {
         var sourceElement = event.target;
+        // don't try to guess if it was clicked on the ul
         if (sourceElement.tagName.toLowerCase() === 'li') {
             Main.guess(sourceElement.innerHTML);
         }
     };
+    /**
+     * Show only the units whose name match with the `value` given.
+     */
     List.prototype.search = function (value) {
         var re = new RegExp(value, 'i');
         var matchValues = [];
@@ -32,9 +39,14 @@ var List = (function () {
                 matchValues.push(name);
             }
         }
+        // add the values that matched the search
         this.buildList(matchValues);
     };
+    /**
+     * Build a new list, with the names given.
+     */
     List.prototype.buildList = function (unitNames) {
+        // clear the previous list
         this.ul.innerHTML = '';
         var length = unitNames.length;
         for (var a = 0; a < length; a++) {
@@ -46,6 +58,9 @@ var List = (function () {
             this.ul.appendChild(unit);
         }
     };
+    /**
+     * Get the first list item, or `null` if the list is empty.
+     */
     List.prototype.getFirstItem = function () {
         if (this.ul.children.length > 0) {
             return this.ul.children[0];
@@ -54,4 +69,3 @@ var List = (function () {
     };
     return List;
 })();
-//# sourceMappingURL=list.js.map

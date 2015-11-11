@@ -1,4 +1,4 @@
-/// <reference path="../libraries/definitions/game_engine.1.1.1.d.ts" />
+/// <reference path="../libraries/game_engine.1.3.1.d.ts" />
 /// <reference path="list.ts" />
 
 window.onload = function()
@@ -19,20 +19,24 @@ var UNITS_NAMES = {
     hydralisk: { race: 'zerg' },
     'infested terran': { race: 'zerg' },
     infestor: { race: 'zerg' },
+    lurker: { race: 'zerg' },
     mutalisk: { race: 'zerg' },
     overlord: { race: 'zerg' },
     overseer: { race: 'zerg' },
     queen: { race: 'zerg' },
+    ravager: { race: 'zerg' },
     roach: { race: 'zerg' },
     'swarm host': { race: 'zerg' },
     ultralisk: { race: 'zerg' },
     viper: { race: 'zerg' },
     zergling: { race: 'zerg' },
 
+    adept: { race: 'protoss' },
     archon: { race: 'protoss' },
     carrier: { race: 'protoss' },
     colossus: { race: 'protoss' },
     'dark templar': { race: 'protoss' },
+    disruptor: { race: 'protoss' },
     'high templar': { race: 'protoss' },
     immortal: { race: 'protoss' },
     mothership: { race: 'protoss' },
@@ -49,9 +53,11 @@ var UNITS_NAMES = {
 
     banshee: { race: 'terran' },
     battlecruiser: { race: 'terran' },
+    cyclone: { race: 'terran' },
     ghost: { race: 'terran' },
     hellbat: { race: 'terran' },
     hellion: { race: 'terran' },
+    liberator: { race: 'terran' },
     marauder: { race: 'terran' },
     marine: { race: 'terran' },
     medivac: { race: 'terran' },
@@ -126,7 +132,7 @@ function initMenu()
     SEARCH_ELEMENT.addEventListener( 'keyup', function( event )
         {
             // on enter, try to guess the first list item
-        if ( event.keyCode === Utilities.KEY_CODE.enter )
+        if ( event.keyCode === Game.Utilities.KEY_CODE.enter )
             {
             var first = LIST.getFirstItem();
 
