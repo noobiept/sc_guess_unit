@@ -1,13 +1,10 @@
 interface ListArgs
     {
-    units_info: Object;
     container: HTMLElement;
     }
 
 class List
     {
-    unit_names: string[];
-    units_info: Object;
     ul: HTMLUListElement;
 
     constructor( args: ListArgs )
@@ -18,7 +15,6 @@ class List
         container.className = 'List';
 
         var ul = document.createElement( 'ul' );
-        var unitsNames = Object.keys( args.units_info );
 
         ul.addEventListener( 'click', function( event )
             {
@@ -29,10 +25,6 @@ class List
         args.container.appendChild( container );
 
         this.ul = ul;
-        this.unit_names = unitsNames;
-        this.units_info = args.units_info;
-
-        this.buildList( unitsNames );
         }
 
 
@@ -54,20 +46,20 @@ class List
     /**
      * Show only the units whose name match with the `value` given.
      */
-    search( value: string )
+    search( value: string, unitsList: Main.UNIT_INFO[] )
         {
         var re = new RegExp( value, 'i' );
         var matchValues = [];
-        var length = this.unit_names.length;
+        var length = unitsList.length;
         var a;
 
         for (a = 0 ; a < length ; a++)
             {
-            var name = this.unit_names[ a ];
+            var info = unitsList[ a ];
 
-            if ( re.test( name ) )
+            if ( re.test( info.name ) )
                 {
-                matchValues.push( name );
+                matchValues.push( info );
                 }
             }
 
@@ -80,21 +72,20 @@ class List
     /**
      * Build a new list, with the names given.
      */
-    buildList( unitNames: string[] )
+    buildList( unitsList: Main.UNIT_INFO[] )
         {
             // clear the previous list
         this.ul.innerHTML = '';
 
-        var length = unitNames.length;
+        var length = unitsList.length;
 
         for (var a = 0 ; a < length ; a++)
             {
             var unit = document.createElement( 'li' );
-            var unitName = unitNames[ a ];
-            var race = this.units_info[ unitName ].race;
+            var info = unitsList[ a ];
 
-            unit.innerHTML = unitName;
-            unit.className = race;
+            unit.innerHTML = info.name;
+            unit.className = info.race;
 
             this.ul.appendChild( unit );
             }

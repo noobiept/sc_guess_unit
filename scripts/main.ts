@@ -10,75 +10,76 @@ Main.init();
 module Main
 {
 enum RACE { zerg, protoss, terran, all }
+export interface UNIT_INFO { name: string; race: string; }
 
 var UNITS = {
-    zerg: {
-        baneling: { race: 'zerg' },
-        broodling: { race: 'zerg' },
-        broodlord: { race: 'zerg' },
-        changeling: { race: 'zerg' },
-        corruptor: { race: 'zerg' },
-        drone: { race: 'zerg' },
-        hydralisk: { race: 'zerg' },
-        'infested terran': { race: 'zerg' },
-        infestor: { race: 'zerg' },
-        lurker: { race: 'zerg' },
-        mutalisk: { race: 'zerg' },
-        overlord: { race: 'zerg' },
-        overseer: { race: 'zerg' },
-        queen: { race: 'zerg' },
-        ravager: { race: 'zerg' },
-        roach: { race: 'zerg' },
-        'swarm host': { race: 'zerg' },
-        ultralisk: { race: 'zerg' },
-        viper: { race: 'zerg' },
-        zergling: { race: 'zerg' }
-    },
+    zerg: [
+        { name: 'baneling', race: 'zerg' },
+        { name: 'broodling', race: 'zerg' },
+        { name: 'broodlord', race: 'zerg' },
+        { name: 'changeling', race: 'zerg' },
+        { name: 'corruptor', race: 'zerg' },
+        { name: 'drone', race: 'zerg' },
+        { name: 'hydralisk', race: 'zerg' },
+        { name: 'infested terran', race: 'zerg' },
+        { name: 'infestor', race: 'zerg' },
+        { name: 'lurker', race: 'zerg' },
+        { name: 'mutalisk', race: 'zerg' },
+        { name: 'overlord', race: 'zerg' },
+        { name: 'overseer', race: 'zerg' },
+        { name: 'queen', race: 'zerg' },
+        { name: 'ravager', race: 'zerg' },
+        { name: 'roach', race: 'zerg' },
+        { name: 'swarm host', race: 'zerg' },
+        { name: 'ultralisk', race: 'zerg' },
+        { name: 'viper', race: 'zerg' },
+        { name: 'zergling', race: 'zerg' }
+    ],
 
-    protoss: {
-        adept: { race: 'protoss' },
-        archon: { race: 'protoss' },
-        carrier: { race: 'protoss' },
-        colossus: { race: 'protoss' },
-        'dark templar': { race: 'protoss' },
-        disruptor: { race: 'protoss' },
-        'high templar': { race: 'protoss' },
-        immortal: { race: 'protoss' },
-        mothership: { race: 'protoss' },
-        observer: { race: 'protoss' },
-        oracle: { race: 'protoss' },
-        phoenix: { race: 'protoss' },
-        probe: { race: 'protoss' },
-        sentry: { race: 'protoss' },
-        stalker: { race: 'protoss' },
-        tempest: { race: 'protoss' },
-        'void ray': { race: 'protoss' },
-        'warp prism': { race: 'protoss' },
-        zealot: { race: 'protoss' }
-    },
+    protoss: [
+        { name: 'adept', race: 'protoss' },
+        { name: 'archon', race: 'protoss' },
+        { name: 'carrier', race: 'protoss' },
+        { name: 'colossus', race: 'protoss' },
+        { name: 'dark templar', race: 'protoss' },
+        { name: 'disruptor', race: 'protoss' },
+        { name: 'high templar', race: 'protoss' },
+        { name: 'immortal', race: 'protoss' },
+        { name: 'mothership', race: 'protoss' },
+        { name: 'observer', race: 'protoss' },
+        { name: 'oracle', race: 'protoss' },
+        { name: 'phoenix', race: 'protoss' },
+        { name: 'probe', race: 'protoss' },
+        { name: 'sentry', race: 'protoss' },
+        { name: 'stalker', race: 'protoss' },
+        { name: 'tempest', race: 'protoss' },
+        { name: 'void ray', race: 'protoss' },
+        { name: 'warp prism', race: 'protoss' },
+        { name: 'zealot', race: 'protoss' }
+    ],
 
-    terran: {
-        banshee: { race: 'terran' },
-        battlecruiser: { race: 'terran' },
-        cyclone: { race: 'terran' },
-        ghost: { race: 'terran' },
-        hellbat: { race: 'terran' },
-        hellion: { race: 'terran' },
-        liberator: { race: 'terran' },
-        marauder: { race: 'terran' },
-        marine: { race: 'terran' },
-        medivac: { race: 'terran' },
-        mule: { race: 'terran' },
-        raven: { race: 'terran' },
-        reaper: { race: 'terran' },
-        scv: { race: 'terran' },
-        'siege tank': { race: 'terran' },
-        thor: { race: 'terran' },
-        viking: { race: 'terran' },
-        'widow mine': { race: 'terran' }
-    },
+    terran: [
+        { name: 'banshee', race: 'terran' },
+        { name: 'battlecruiser', race: 'terran' },
+        { name: 'cyclone', race: 'terran' },
+        { name: 'ghost', race: 'terran' },
+        { name: 'hellbat', race: 'terran' },
+        { name: 'hellion', race: 'terran' },
+        { name: 'liberator', race: 'terran' },
+        { name: 'marauder', race: 'terran' },
+        { name: 'marine', race: 'terran' },
+        { name: 'medivac', race: 'terran' },
+        { name: 'mule', race: 'terran' },
+        { name: 'raven', race: 'terran' },
+        { name: 'reaper', race: 'terran' },
+        { name: 'scv', race: 'terran' },
+        { name: 'siege tank', race: 'terran' },
+        { name: 'thor', race: 'terran' },
+        { name: 'viking', race: 'terran' },
+        { name: 'widow mine', race: 'terran' }
+    ],
 
-    all: {}     // has all the names above (will be populated later)
+    all: []     // has all the names above (will be populated later)
 };
 
 
@@ -98,7 +99,7 @@ var LIST_FILTERS: {
 };
 
     // game values
-var CURRENT_UNIT = '';
+var CURRENT_UNIT: UNIT_INFO;
 var CURRENT_RACE = RACE.all;
 var UNITS_LEFT = [];
 var SCORE = 0;
@@ -117,13 +118,12 @@ export function init()
     MESSAGE_ELEMENT = document.querySelector( '#Message' );
 
         // combine all units names
-    UNITS.all = mergeDicts( UNITS.zerg, UNITS.protoss, UNITS.terran );
-
+    UNITS.all = UNITS.zerg.concat( UNITS.protoss, UNITS.terran );
 
     LIST = new List({
-            units_info: UNITS.all,
             container: document.body
         });
+    LIST.buildList( UNITS.all );
 
     start( CURRENT_RACE );
     }
@@ -142,10 +142,11 @@ function initMenu()
         // add the event listeners to the search element
     SEARCH_ELEMENT.addEventListener( 'input', function( event )
         {
-        LIST.search( event.target.value );
+        var raceString = RACE[ CURRENT_RACE ];
 
-            // the search is done with all the units, so update the filter element
-        updateSelectedListFilter( LIST_FILTERS.all );
+        LIST.search( event.target.value, UNITS[ raceString ] );
+
+        updateSelectedListFilter( LIST_FILTERS[ raceString ] );
         });
     SEARCH_ELEMENT.addEventListener( 'keyup', function( event )
         {
@@ -239,9 +240,9 @@ function initMenu()
 function start( race: RACE )
     {
         // reset the state
-    CURRENT_UNIT = '';
+    CURRENT_UNIT = null;
     CURRENT_RACE = race;
-    UNITS_LEFT = Object.keys( UNITS[ RACE[ race ] ] );
+    UNITS_LEFT = UNITS[ RACE[ race ] ].concat();
     setScore( 100 );
 
         // reduce the score every second
@@ -271,13 +272,13 @@ export function guess( unitName?: string )
         }
 
 
-    if ( unitName === CURRENT_UNIT ||
+    if ( unitName === CURRENT_UNIT.name ||
          skip === true )
         {
         if ( skip )
             {
             setScore( SCORE - 10 );
-            showMessage( CURRENT_UNIT );
+            showMessage( CURRENT_UNIT.name );
             }
 
         else
@@ -329,12 +330,12 @@ function getNextUnit()
 
         if ( AUDIO_ELEMENT.canPlayType( 'audio/ogg' ) )
             {
-            AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.ogg';
+            AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT.name + '.ogg';
             }
 
         else
             {
-            AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT + '.mp3';
+            AUDIO_ELEMENT.src = 'audio/' + CURRENT_UNIT.name + '.mp3';
             }
 
         AUDIO_ELEMENT.play();
@@ -463,7 +464,7 @@ function filterList( race: RACE )
     {
     var raceString = RACE[ race ];
     var element = LIST_FILTERS[ raceString ];
-    var filteredNames = Object.keys( UNITS[ raceString ] );
+    var filteredNames = UNITS[ raceString ];
 
         // move the 'selected' css class from the previous selected element
     updateSelectedListFilter( element );
