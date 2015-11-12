@@ -86,6 +86,7 @@ var Main;
     var MESSAGE_ELEMENT;
     var SEARCH_ELEMENT;
     var CURRENT_SELECTED_FILTER;
+    var LIST_FILTERS;
     // game values
     var CURRENT_UNIT = '';
     var CURRENT_RACE = RACE.all;
@@ -120,8 +121,7 @@ var Main;
         SEARCH_ELEMENT.addEventListener('input', function (event) {
             LIST.search(event.target.value);
             // the search is done with all the units, so update the filter element
-            var listAll = document.querySelector('#ListAll');
-            updateSelectedListFilter(listAll);
+            updateSelectedListFilter(LIST_FILTERS.all);
         });
         SEARCH_ELEMENT.addEventListener('keyup', function (event) {
             // on enter, try to guess the first list item
@@ -153,17 +153,30 @@ var Main;
         // when a new race is selected, start a new game giving only units of that race
         var selectRace = document.getElementById('SelectRace');
         selectRace.addEventListener('change', function (event) {
+            var race = RACE[selectRace.value];
             clear();
-            start(RACE[selectRace.value]);
+            start(race);
+            filterList(race);
         });
         // add event listener to the list's filters
-        var listFilters = document.querySelector('#ListFilters');
-        CURRENT_SELECTED_FILTER = document.querySelector('#ListAll');
-        listFilters.addEventListener('click', function (event) {
-            var target = event.target;
-            if (target.tagName.toLowerCase() === 'li') {
-                filterList(target);
-            }
+        LIST_FILTERS = {
+            all: document.getElementById('ListAll'),
+            zerg: document.getElementById('ListOnlyZerg'),
+            protoss: document.getElementById('ListOnlyProtoss'),
+            terran: document.getElementById('ListOnlyTerran')
+        };
+        CURRENT_SELECTED_FILTER = LIST_FILTERS.all;
+        LIST_FILTERS.all.addEventListener('click', function (event) {
+            filterList(RACE.all);
+        });
+        LIST_FILTERS.zerg.addEventListener('click', function (event) {
+            filterList(RACE.zerg);
+        });
+        LIST_FILTERS.protoss.addEventListener('click', function (event) {
+            filterList(RACE.protoss);
+        });
+        LIST_FILTERS.terran.addEventListener('click', function (event) {
+            filterList(RACE.terran);
         });
         // update the highest score element
         updateHighestScore();
@@ -208,8 +221,7 @@ var Main;
             hasEnded = getNextUnit();
             // clear the search and the filters (in case it was used to get the correct unit)
             SEARCH_ELEMENT.value = '';
-            var listAll = document.querySelector('#ListAll');
-            filterList(listAll);
+            filterList(CURRENT_RACE);
         }
         else {
             setScore(SCORE - 5);
@@ -320,10 +332,10 @@ var Main;
     /**
      * Filter the list, to only show the units of the given race.
      */
-    function filterList(element) {
-        var names = Object.keys(UNITS.all);
-        var race = element.innerHTML.toLowerCase();
-        var filteredNames = Object.keys(UNITS[race]);
+    function filterList(race) {
+        var raceString = RACE[race];
+        var element = LIST_FILTERS[raceString];
+        var filteredNames = Object.keys(UNITS[raceString]);
         // move the 'selected' css class from the previous selected element
         updateSelectedListFilter(element);
         // show the filtered units only
