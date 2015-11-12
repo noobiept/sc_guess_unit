@@ -5,64 +5,78 @@ window.onload = function () {
 };
 var Main;
 (function (Main) {
-    var UNITS_NAMES = {
-        baneling: { race: 'zerg' },
-        broodling: { race: 'zerg' },
-        broodlord: { race: 'zerg' },
-        changeling: { race: 'zerg' },
-        corruptor: { race: 'zerg' },
-        drone: { race: 'zerg' },
-        hydralisk: { race: 'zerg' },
-        'infested terran': { race: 'zerg' },
-        infestor: { race: 'zerg' },
-        lurker: { race: 'zerg' },
-        mutalisk: { race: 'zerg' },
-        overlord: { race: 'zerg' },
-        overseer: { race: 'zerg' },
-        queen: { race: 'zerg' },
-        ravager: { race: 'zerg' },
-        roach: { race: 'zerg' },
-        'swarm host': { race: 'zerg' },
-        ultralisk: { race: 'zerg' },
-        viper: { race: 'zerg' },
-        zergling: { race: 'zerg' },
-        adept: { race: 'protoss' },
-        archon: { race: 'protoss' },
-        carrier: { race: 'protoss' },
-        colossus: { race: 'protoss' },
-        'dark templar': { race: 'protoss' },
-        disruptor: { race: 'protoss' },
-        'high templar': { race: 'protoss' },
-        immortal: { race: 'protoss' },
-        mothership: { race: 'protoss' },
-        observer: { race: 'protoss' },
-        oracle: { race: 'protoss' },
-        phoenix: { race: 'protoss' },
-        probe: { race: 'protoss' },
-        sentry: { race: 'protoss' },
-        stalker: { race: 'protoss' },
-        tempest: { race: 'protoss' },
-        'void ray': { race: 'protoss' },
-        'warp prism': { race: 'protoss' },
-        zealot: { race: 'protoss' },
-        banshee: { race: 'terran' },
-        battlecruiser: { race: 'terran' },
-        cyclone: { race: 'terran' },
-        ghost: { race: 'terran' },
-        hellbat: { race: 'terran' },
-        hellion: { race: 'terran' },
-        liberator: { race: 'terran' },
-        marauder: { race: 'terran' },
-        marine: { race: 'terran' },
-        medivac: { race: 'terran' },
-        mule: { race: 'terran' },
-        raven: { race: 'terran' },
-        reaper: { race: 'terran' },
-        scv: { race: 'terran' },
-        'siege tank': { race: 'terran' },
-        thor: { race: 'terran' },
-        viking: { race: 'terran' },
-        'widow mine': { race: 'terran' }
+    var RACE;
+    (function (RACE) {
+        RACE[RACE["zerg"] = 0] = "zerg";
+        RACE[RACE["protoss"] = 1] = "protoss";
+        RACE[RACE["terran"] = 2] = "terran";
+        RACE[RACE["all"] = 3] = "all";
+    })(RACE || (RACE = {}));
+    var UNITS = {
+        zerg: {
+            baneling: { race: 'zerg' },
+            broodling: { race: 'zerg' },
+            broodlord: { race: 'zerg' },
+            changeling: { race: 'zerg' },
+            corruptor: { race: 'zerg' },
+            drone: { race: 'zerg' },
+            hydralisk: { race: 'zerg' },
+            'infested terran': { race: 'zerg' },
+            infestor: { race: 'zerg' },
+            lurker: { race: 'zerg' },
+            mutalisk: { race: 'zerg' },
+            overlord: { race: 'zerg' },
+            overseer: { race: 'zerg' },
+            queen: { race: 'zerg' },
+            ravager: { race: 'zerg' },
+            roach: { race: 'zerg' },
+            'swarm host': { race: 'zerg' },
+            ultralisk: { race: 'zerg' },
+            viper: { race: 'zerg' },
+            zergling: { race: 'zerg' }
+        },
+        protoss: {
+            adept: { race: 'protoss' },
+            archon: { race: 'protoss' },
+            carrier: { race: 'protoss' },
+            colossus: { race: 'protoss' },
+            'dark templar': { race: 'protoss' },
+            disruptor: { race: 'protoss' },
+            'high templar': { race: 'protoss' },
+            immortal: { race: 'protoss' },
+            mothership: { race: 'protoss' },
+            observer: { race: 'protoss' },
+            oracle: { race: 'protoss' },
+            phoenix: { race: 'protoss' },
+            probe: { race: 'protoss' },
+            sentry: { race: 'protoss' },
+            stalker: { race: 'protoss' },
+            tempest: { race: 'protoss' },
+            'void ray': { race: 'protoss' },
+            'warp prism': { race: 'protoss' },
+            zealot: { race: 'protoss' }
+        },
+        terran: {
+            banshee: { race: 'terran' },
+            battlecruiser: { race: 'terran' },
+            cyclone: { race: 'terran' },
+            ghost: { race: 'terran' },
+            hellbat: { race: 'terran' },
+            hellion: { race: 'terran' },
+            liberator: { race: 'terran' },
+            marauder: { race: 'terran' },
+            marine: { race: 'terran' },
+            medivac: { race: 'terran' },
+            mule: { race: 'terran' },
+            raven: { race: 'terran' },
+            reaper: { race: 'terran' },
+            scv: { race: 'terran' },
+            'siege tank': { race: 'terran' },
+            thor: { race: 'terran' },
+            viking: { race: 'terran' },
+            'widow mine': { race: 'terran' }
+        },
+        all: {} // has all the names above (will be populated later)
     };
     // html elements
     var MENU_UNITS_LEFT;
@@ -74,6 +88,7 @@ var Main;
     var CURRENT_SELECTED_FILTER;
     // game values
     var CURRENT_UNIT = '';
+    var CURRENT_RACE = RACE.all;
     var UNITS_LEFT = [];
     var SCORE = 0;
     var MESSAGE_ID;
@@ -84,11 +99,13 @@ var Main;
         initMenu();
         AUDIO_ELEMENT = document.querySelector('#Audio');
         MESSAGE_ELEMENT = document.querySelector('#Message');
+        // combine all units names
+        UNITS.all = mergeDicts(UNITS.zerg, UNITS.protoss, UNITS.terran);
         LIST = new List({
-            units_info: UNITS_NAMES,
+            units_info: UNITS.all,
             container: document.body
         });
-        start();
+        start(CURRENT_RACE);
     }
     Main.init = init;
     /**
@@ -128,10 +145,16 @@ var Main;
             }
         });
         // add event listener to restart the game
-        var restart = document.querySelector('#Restart');
+        var restart = document.getElementById('Restart');
         restart.addEventListener('click', function (event) {
             clear();
-            start();
+            start(CURRENT_RACE);
+        });
+        // when a new race is selected, start a new game giving only units of that race
+        var selectRace = document.getElementById('SelectRace');
+        selectRace.addEventListener('change', function (event) {
+            clear();
+            start(RACE[selectRace.value]);
         });
         // add event listener to the list's filters
         var listFilters = document.querySelector('#ListFilters');
@@ -147,11 +170,13 @@ var Main;
     }
     /**
      * Start a new game.
+     * A game can have only units of a certain race, or all of them.
      */
-    function start() {
+    function start(race) {
         // reset the state
         CURRENT_UNIT = '';
-        UNITS_LEFT = Object.keys(UNITS_NAMES);
+        CURRENT_RACE = race;
+        UNITS_LEFT = Object.keys(UNITS[RACE[race]]);
         setScore(100);
         // reduce the score every second
         TIMER_ID = window.setInterval(function () {
@@ -241,7 +266,7 @@ var Main;
             value: 'Ok',
             callback: function (button) {
                 message.clear();
-                start();
+                start(CURRENT_RACE);
             }
         });
         var message = new Game.Message({
@@ -296,23 +321,9 @@ var Main;
      * Filter the list, to only show the units of the given race.
      */
     function filterList(element) {
-        var names = Object.keys(UNITS_NAMES);
-        var length = names.length;
+        var names = Object.keys(UNITS.all);
         var race = element.innerHTML.toLowerCase();
-        var filteredNames = [];
-        // show all the units
-        if (race === 'all') {
-            filteredNames = names;
-        }
-        else {
-            for (var a = 0; a < length; a++) {
-                var name = names[a];
-                var info = UNITS_NAMES[name];
-                if (info.race === race) {
-                    filteredNames.push(name);
-                }
-            }
-        }
+        var filteredNames = Object.keys(UNITS[race]);
         // move the 'selected' css class from the previous selected element
         updateSelectedListFilter(element);
         // show the filtered units only
