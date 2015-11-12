@@ -52,8 +52,24 @@ ul
 
 #Message
     {
+    background: none;
     font-weight: bold;
     font-size: 150%;
+    }
+
+#Message.zerg
+    {
+    color: rgb(128, 0, 128);
+    }
+
+#Message.protoss
+    {
+    color: rgb(150, 150, 0);
+    }
+
+#Message.terran
+    {
+    color: rgb(0, 0, 255);
     }
 
 .correct

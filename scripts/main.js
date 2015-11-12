@@ -212,7 +212,7 @@ var Main;
             skip === true) {
             if (skip) {
                 setScore(SCORE - 10);
-                showMessage(CURRENT_UNIT.name);
+                showMessage(CURRENT_UNIT.name, CURRENT_UNIT.race);
             }
             else {
                 setScore(SCORE + 10);

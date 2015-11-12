@@ -278,7 +278,7 @@ export function guess( unitName?: string )
         if ( skip )
             {
             setScore( SCORE - 10 );
-            showMessage( CURRENT_UNIT.name );
+            showMessage( CURRENT_UNIT.name, CURRENT_UNIT.race );
             }
 
         else
