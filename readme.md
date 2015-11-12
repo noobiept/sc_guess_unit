@@ -1,7 +1,7 @@
 Link
 ====
 
-You can try it out here: [http://sc-guess-unit.herokuapp.com/](http://sc-guess-unit.herokuapp.com/)
+You can try it out here: [http://nbpt.eu/games/sc_guess_unit/](http://nbpt.eu/games/sc_guess_unit/)
 
 
 Gameplay

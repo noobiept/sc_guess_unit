@@ -66,6 +66,12 @@ ul
     color: red;
     }
 
+#GameInfo > li
+    {
+    display: inline-block;
+    min-width: 125px;
+    }
+
 #GameInfo, #Message, #List, #Menu, #AudioContainer
     {
     margin: 12px;
@@ -109,7 +115,7 @@ ul#Menu > *, #Menu ul > *
 
 .Game-Message-container
     {
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -144,7 +150,7 @@ ul#Menu > *, #Menu ul > *
 
 .Game-Message-background
     {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.2);
