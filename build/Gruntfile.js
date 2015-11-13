@@ -20,6 +20,7 @@ grunt.initConfig({
         ts: {
             release: {
                 src: [ root + 'scripts/*.ts' ],
+                dest: 'temp/code.js',
                 options: {
                     sourceMap: false
                 }
@@ -42,7 +43,7 @@ grunt.initConfig({
         uglify: {
             release: {
                 files: [{
-                    src: root + 'scripts/**/*.js',
+                    src: 'temp/code.js',
                     dest: dest + 'min.js'
                 }]
             }
