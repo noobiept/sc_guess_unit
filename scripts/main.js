@@ -178,8 +178,6 @@ var Main;
         LIST_FILTERS.terran.addEventListener('click', function (event) {
             filterList(RACE.terran);
         });
-        // update the highest score element
-        updateHighestScore();
     }
     /**
      * Start a new game.
@@ -197,6 +195,7 @@ var Main;
         }, 1000);
         // start the game
         getNextUnit();
+        updateHighestScore();
         SEARCH_ELEMENT.focus();
     }
     /**
@@ -215,7 +214,7 @@ var Main;
                 showMessage(CURRENT_UNIT.name, CURRENT_UNIT.race);
             }
             else {
-                setScore(SCORE + 10);
+                setScore(SCORE + 15);
                 showMessage('Correct!', 'correct');
             }
             hasEnded = getNextUnit();
@@ -270,7 +269,7 @@ var Main;
         SEARCH_ELEMENT.blur();
         // compare this score with the highest score
         // and update the menu element with the highest score
-        Game.HighScore.add('score', SCORE);
+        Game.HighScore.add(RACE[CURRENT_RACE], SCORE);
         updateHighestScore();
         // show a final message with the score
         // restart the game when 'ok' is pressed
@@ -305,7 +304,7 @@ var Main;
      * Update the `highest score` menu element with the current highest score.
      */
     function updateHighestScore() {
-        var score = Game.HighScore.get('score');
+        var score = Game.HighScore.get(RACE[CURRENT_RACE]);
         if (score && score.length > 0) {
             MENU_HIGHEST_SCORE.innerHTML = score[0];
         }

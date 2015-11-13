@@ -227,9 +227,6 @@ function initMenu()
         {
         filterList( RACE.terran );
         });
-
-        // update the highest score element
-    updateHighestScore();
     }
 
 
@@ -253,6 +250,7 @@ function start( race: RACE )
 
         // start the game
     getNextUnit();
+    updateHighestScore();
 
     SEARCH_ELEMENT.focus();
     }
@@ -283,7 +281,7 @@ export function guess( unitName?: string )
 
         else
             {
-            setScore( SCORE + 10 );
+            setScore( SCORE + 15 );
             showMessage( 'Correct!', 'correct' );
             }
 
@@ -371,7 +369,7 @@ function gameOver()
 
         // compare this score with the highest score
         // and update the menu element with the highest score
-    Game.HighScore.add( 'score', SCORE );
+    Game.HighScore.add( RACE[ CURRENT_RACE ], SCORE );
     updateHighestScore();
 
 
@@ -419,7 +417,7 @@ function setUnitsLeft( value: number )
  */
 function updateHighestScore()
     {
-    var score = Game.HighScore.get( 'score' );
+    var score = Game.HighScore.get( RACE[ CURRENT_RACE ] );
 
     if ( score && score.length > 0 )
         {

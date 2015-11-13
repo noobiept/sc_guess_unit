@@ -1,5 +1,6 @@
 module.exports = function( grunt )
 {
+var root = '../';
 var dest = '../release/<%= pkg.name %>_<%= pkg.version %>/';
 
 grunt.initConfig({
@@ -18,7 +19,10 @@ grunt.initConfig({
             // compile to javascript
         ts: {
             release: {
-                src: [ '../scripts/*.ts' ]
+                src: [ root + 'scripts/*.ts' ],
+                options: {
+                    sourceMap: false
+                }
             }
         },
 
@@ -26,7 +30,7 @@ grunt.initConfig({
         copy: {
             release: {
                 expand: true,
-                cwd: '../',
+                cwd: root,
                 src: [
                     'audio/*.{mp3,ogg}',
                     'libraries/*.js'
@@ -37,9 +41,10 @@ grunt.initConfig({
 
         uglify: {
             release: {
-                files: {
-                    '../release/<%= pkg.name %>_<%= pkg.version %>/min.js': [ '../scripts/*.js' ]
-                }
+                files: [{
+                    src: root + 'scripts/**/*.js',
+                    dest: dest + 'min.js'
+                }]
             }
         },
 
@@ -47,7 +52,7 @@ grunt.initConfig({
             release: {
                 files: [{
                     expand: true,
-                    cwd: '../',
+                    cwd: root,
                     src: 'style.css',
                     dest: dest
                 }]
@@ -58,7 +63,7 @@ grunt.initConfig({
             release: {
                 files: [{
                     expand: true,
-                    cwd: '../',
+                    cwd: root,
                     src: 'index.html',
                     dest: dest
                 }]
