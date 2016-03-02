@@ -1,7 +1,8 @@
 /// <reference path="../libraries/game_engine.1.3.1.d.ts" />
 /// <reference path="list.ts" />
+/// <reference path="high_score.ts" />
 window.onload = function () {
-    Main.init();
+    HighScore.load(Main.init);
 };
 var Main;
 (function (Main) {
@@ -96,7 +97,6 @@ var Main;
     var TIMER_ID;
     var LIST;
     function init() {
-        Game.HighScore.init(1, 'sc_guess_unit_high_score', false);
         initMenu();
         AUDIO_ELEMENT = document.querySelector('#Audio');
         MESSAGE_ELEMENT = document.querySelector('#Message');
@@ -269,7 +269,7 @@ var Main;
         SEARCH_ELEMENT.blur();
         // compare this score with the highest score
         // and update the menu element with the highest score
-        Game.HighScore.add(RACE[CURRENT_RACE], SCORE);
+        HighScore.add(RACE[CURRENT_RACE], SCORE);
         updateHighestScore();
         // show a final message with the score
         // restart the game when 'ok' is pressed
@@ -304,9 +304,9 @@ var Main;
      * Update the `highest score` menu element with the current highest score.
      */
     function updateHighestScore() {
-        var score = Game.HighScore.get(RACE[CURRENT_RACE]);
-        if (score && score.length > 0) {
-            MENU_HIGHEST_SCORE.innerHTML = score[0];
+        var score = HighScore.get(RACE[CURRENT_RACE]);
+        if (!isNaN(score)) {
+            MENU_HIGHEST_SCORE.innerHTML = score;
         }
         else {
             MENU_HIGHEST_SCORE.innerHTML = '---';
