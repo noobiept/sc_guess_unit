@@ -1,7 +1,7 @@
 module.exports = function( grunt )
 {
 var root = '../';
-var dest = '../release/<%= pkg.name %>_<%= pkg.version %>/';
+var dest = '../release/<%= pkg.name %> <%= pkg.version %>/';
 
 grunt.initConfig({
         pkg: grunt.file.readJSON( 'package.json' ),
@@ -34,7 +34,10 @@ grunt.initConfig({
                 cwd: root,
                 src: [
                     'audio/*.{mp3,ogg}',
-                    'libraries/*.js'
+                    'images/**',
+                    'libraries/*.js',
+                    'background.js',
+                    'manifest.json'
                 ],
                 dest: dest
             }
@@ -57,6 +60,9 @@ grunt.initConfig({
                     src: 'style.css',
                     dest: dest
                 }]
+            },
+            options: {
+                advanced: false
             }
         },
 
